@@ -18,10 +18,15 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class indexer {
-
+    private String data_path;
+	private String output_flie = "./index.post";
+	
+    public indexer(String path) {
+        this.data_path = path;
+    }
     public void processing() {
         try {
-            File file = new File("src/scripts/index.xml");
+            File file = new File(data_path);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file);
@@ -87,13 +92,13 @@ public class indexer {
                 outHash.put(i2s.get(i), item);
             }
 
-            FileOutputStream fileStream = new FileOutputStream("src/data/index.post");
+            FileOutputStream fileStream = new FileOutputStream(output_flie);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileStream);
 
             objectOutputStream.writeObject(outHash);
             objectOutputStream.close();
 
-            FileInputStream fileInputStream = new FileInputStream("src/data/index.post");
+            FileInputStream fileInputStream = new FileInputStream(output_flie);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
             Object object = objectInputStream.readObject();

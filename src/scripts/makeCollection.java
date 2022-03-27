@@ -16,7 +16,7 @@ import org.w3c.dom.Element;
 
 public class makeCollection {
     private String data_path;
-	private String output_flie = "./src/data/collection.xml";
+	private String output_flie = "./collection.xml";
 	
     public makeCollection(String path) {
         this.data_path = path;

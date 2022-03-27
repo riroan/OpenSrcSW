@@ -13,7 +13,9 @@ public class kuir {
             makeKeyword keyword = new makeKeyword(path);
             keyword.convertXml();
         }
-        // indexer ix = new indexer();
-        // ix.processing();
+        else if (command.equals("-i")) {
+            indexer ix = new indexer(path);
+            ix.processing();
+        }
     }
 }
