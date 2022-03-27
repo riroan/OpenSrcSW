@@ -1,3 +1,4 @@
+package scripts;
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -14,10 +15,17 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class makeCollection {
-    public void preprocessing()  throws Exception {
+    private String data_path;
+	private String output_flie = "./src/data/collection.xml";
+	
+    public makeCollection(String path) {
+        this.data_path = path;
+    }
+    
+    public void makeXml()  throws Exception {
         try {
             // 파일 목록 불러오기
-            File dir = new File("./src/html/");
+            File dir = new File(data_path);
             File files[] = dir.listFiles();
 
             // xml 생성기
@@ -63,7 +71,7 @@ public class makeCollection {
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new FileOutputStream(new File("./src/out.xml")));
+            StreamResult result = new StreamResult(new FileOutputStream(new File(output_flie)));
 
             transformer.transform(source, result);
         }catch(Exception e){

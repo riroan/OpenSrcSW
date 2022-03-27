@@ -1,3 +1,4 @@
+package scripts;
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -17,6 +18,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class makeKeyword {
+    private String input_file;
+	private String output_flie = "./src/data/index.xml";
+	
+    public makeKeyword(String file) {
+        this.input_file = file;
+    }
+    
     public String textAnalysis(String src) {
 
         KeywordExtractor ke = new KeywordExtractor();
@@ -31,11 +39,12 @@ public class makeKeyword {
         return data;
     }
     
-    public void analysis()  throws Exception {
+    public void convertXml()  throws Exception {
         try {
             // 파일 목록 불러오기
-            File dir = new File("./src/html/");
-            File files[] = dir.listFiles();
+            File file = new File(input_file);
+            // File files[] = dir.listFiles();
+            // File files[] = {dir};
 
             // xml 생성기
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -50,33 +59,31 @@ public class makeKeyword {
             Element docs = doc.createElement("docs");
             doc.appendChild(docs);
 
-            for (File file : files) {
-                // jsoup 객체
-                org.jsoup.nodes.Document html = Jsoup.parse(file, "UTF-8");
+            // jsoup 객체
+            org.jsoup.nodes.Document html = Jsoup.parse(file, "UTF-8");
 
-                String titleData = html.title();
-                String bodyData = html.body().text();
-                String data = textAnalysis(bodyData);
+            String titleData = html.title();
+            String bodyData = html.body().text();
+            String data = textAnalysis(bodyData);
 
-                // doc 요소
+            // doc 요소
 
-                Element code = doc.createElement("doc");
-                code.setAttribute("id", Integer.toString(ix++));
+            Element code = doc.createElement("doc");
+            code.setAttribute("id", Integer.toString(ix++));
 
-                // title 요소
+            // title 요소
 
-                Element title = doc.createElement("title");
-                title.appendChild(doc.createTextNode(titleData));
-                code.appendChild(title);
+            Element title = doc.createElement("title");
+            title.appendChild(doc.createTextNode(titleData));
+            code.appendChild(title);
 
-                // body 요소
+            // body 요소
 
-                Element body = doc.createElement("body");
-                body.appendChild(doc.createTextNode(data));
-                code.appendChild(body);
+            Element body = doc.createElement("body");
+            body.appendChild(doc.createTextNode(data));
+            code.appendChild(body);
 
-                docs.appendChild(code);
-            }
+            docs.appendChild(code);
 
             // xml 파일 내보내기
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -85,7 +92,7 @@ public class makeKeyword {
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new FileOutputStream(new File("./src/index.xml")));
+            StreamResult result = new StreamResult(new FileOutputStream(new File(output_flie)));
 
             transformer.transform(source, result);
         } catch (Exception e) {
