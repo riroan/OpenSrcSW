@@ -16,6 +16,11 @@ public class kuir {
         else if (command.equals("-i")) {
             indexer ix = new indexer(path);
             ix.processing();
+        } 
+        else if (command.equals("-s")) {
+            searcher sc = new searcher(path);
+            String query = args[3];
+            sc.processing(query);
         }
     }
 }
