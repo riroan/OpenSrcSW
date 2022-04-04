@@ -63,6 +63,7 @@ public class searcher {
                     values[j] += value[j];
                 }
             }
+            int cnt = 0;
             for (int i = 0; i < 3; i++) { // 상위 3개까지 출력하시오.
                 double m = 0.0;
                 int ix = -1;
@@ -74,8 +75,12 @@ public class searcher {
                 }
                 if (ix == -1)
                     break;
-                System.out.println(titles[ix]);
+                System.out.println("제목 : " + titles[ix] + " 유사도 : " + Math.round(values[ix] * 100) / 100.0 + "%");
                 values[ix] = 0.0;
+                cnt++;
+            }
+            if (cnt == 0) {
+                System.out.println("검색된 문서가 없습니다.");
             }
         } catch (Exception e) {
             e.printStackTrace();
