@@ -25,7 +25,7 @@ public class searcher {
         this.input_file = file;
     }
 
-    public void processing(String query) {
+    public void CalcSim(String query) {
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();

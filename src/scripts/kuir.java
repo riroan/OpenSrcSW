@@ -20,7 +20,7 @@ public class kuir {
         else if (command.equals("-s")) {
             searcher sc = new searcher(path);
             String query = args[3];
-            sc.processing(query);
+            sc.CalcSim(query);
         }
     }
 }
