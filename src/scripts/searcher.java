@@ -52,23 +52,9 @@ public class searcher {
             KeywordExtractor ke = new KeywordExtractor();
             KeywordList kl = ke.extractKeyword(query, true);
 
-            double[] values = new double[n];
-            double[] unders1 = new double[n], unders2 = new double[n];
+            double[] values = InnerProduct(kl, n, hs);
 
-            for (int i = 0; i < kl.size(); i++) {
-                Keyword kw = kl.get(i);
-                // System.out.println(kw.getString());
-                double[] value = (double[]) hs.get(kw.getString());
-                for (int j = 0; j < value.length; j++) {
-                    // System.out.println(value[j]);
-                    values[j] += value[j];
-                    unders1[j] += value[j] * value[j];
-                    unders2[j] += 1;
-                }
-            }
-            for (int i = 0; i < n; i++) {
-                values[i] /= Math.sqrt(unders1[i])*Math.sqrt(unders2[i]);
-            }
+            
             int cnt = 0;
             for (int i = 0; i < 3; i++) { // 상위 3개까지 출력하시오.
                 double m = 0.0;
@@ -81,7 +67,7 @@ public class searcher {
                 }
                 if (ix == -1)
                     break;
-                System.out.println("제목 : " + titles[ix] + " 유사도 : " + Math.round(values[ix] * 100) / 100.0 + "%");
+                System.out.println("제목 : " + titles[ix] + " 유사도 : " + Math.round(values[ix] * 100) / 100.0);
                 values[ix] = 0.0;
                 cnt++;
             }
@@ -91,6 +77,25 @@ public class searcher {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    double[] InnerProduct(KeywordList kl, int n, HashMap hs) {
+        double[] values = new double[n], unders1 = new double[n], unders2 = new double[n];
+        for (int i = 0; i < kl.size(); i++) {
+            Keyword kw = kl.get(i);
+            // System.out.println(kw.getString());
+            double[] value = (double[]) hs.get(kw.getString());
+            for (int j = 0; j < value.length; j++) {
+                // System.out.println(value[j]);
+                values[j] += value[j];
+                unders1[j] += value[j] * value[j];
+                unders2[j] += 1;
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            values[i] /= Math.sqrt(unders1[i]) * Math.sqrt(unders2[i]);
+        }
+        return values;
     }
     
     private String getTagValue(String tag, Element element){
