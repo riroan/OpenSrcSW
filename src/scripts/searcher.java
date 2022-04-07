@@ -81,7 +81,7 @@ public class searcher {
                 }
                 if (ix == -1)
                     break;
-                System.out.println("제목 : " + titles[ix] + " 유사도 : " + Math.round(values[ix] * 100) / 100.0);
+                System.out.println("제목 : " + titles[ix] + " 유사도 : " + Math.round(values[ix] * 100) / 100.0 + "%");
                 values[ix] = 0.0;
                 cnt++;
             }
