@@ -18,4 +18,6 @@ java -cp ./jars/jsoup-1.12.1.jar:./jars/kkma-2.1.jar:bin scripts.kuir -k ./colle
 java -cp ./jars/jsoup-1.12.1.jar:./jars/kkma-2.1.jar:bin scripts.kuir -i ./index.xml
 
 java -cp ./jars/jsoup-1.12.1.jar:./jars/kkma-2.1.jar:bin scripts.kuir -s ./index.post -q "라면에는 면, 분말, 스프가 있다."
+
+java -cp ./jars/jsoup-1.12.1.jar:./jars/kkma-2.1.jar:bin scripts.kuir -m ./collection.xml -q "밀가루 넣은 반죽 반죽"
 ```
