@@ -91,6 +91,7 @@ public class Midterm {
                         String tt = "";
                         tt += titleData + "," + tmp + "," + score;
                         answer.add(tt);
+                        break;
                     }
                 }
             }
