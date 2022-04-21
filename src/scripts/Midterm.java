@@ -72,6 +72,8 @@ public class Midterm {
                     max_score = Math.max(max_score, score);
                 }
             }
+            if (max_score == 0)
+                return;
             List<String> answer = new ArrayList<String>();
             for (int i = 0; i < n; i++) {
                 Node docNode = docList.item(i);
